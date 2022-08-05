@@ -38,7 +38,7 @@ pipeline {
                                 type: pom.packaging],
                                 [artifactId: 'pom.my-app',
                                 classifier: '',
-                                [file: "pom.xml",
+                                file: "pom.xml",
                                 type: "pom"]
                             ]
                         );
