@@ -6,6 +6,14 @@ pipeline {
     
     stages {
         
+        stage("Clone code from GitHub") {
+            steps {
+                script {
+                    git branch: 'master', credentialsId: '281de1f4-2941-41a1-b6bc-9c0865e2e111', url: 'https://github.com/patilashishp/jenkins-nexus.git';
+                }
+            }
+        }
+        
         stage('Build Maven') {
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '281de1f4-2941-41a1-b6bc-9c0865e2e111', url: 'https://github.com/patilashishp/jenkins-nexus.git']]])
