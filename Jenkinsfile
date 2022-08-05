@@ -32,13 +32,11 @@ pipeline {
                             repository: 'maven-central-repository',
                             credentialsId: 'NEXUS_CRED',
                             artifacts: [
-                                [artifactId: 'pom.my-app',
+                                artifactId: 'pom.my-app',
                                 classifier: '',
-                                file: artifactPath,
+                                [file: artifactPath,
                                 type: pom.packaging],
-                                [artifactId: 'pom.my-app',
-                                classifier: '',
-                                file: "pom.xml",
+                                [file: "pom.xml",
                                 type: "pom"]
                             ]
                         );
