@@ -1,4 +1,5 @@
 package com.mycompany;
+package sp.sd.nexusartifactuploader;
 
 import static org.junit.Assert.assertTrue;
 
