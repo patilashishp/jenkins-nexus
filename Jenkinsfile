@@ -40,7 +40,7 @@ pipeline {
                             protocol: 'http',
                             nexusUrl: '50.112.84.71:8081',
                             groupId: 'pom.com.mycompany.app',
-                            version: 'pom.1.0-SNAPSHOT',
+                            version: version,
                             repository: 'maven-central-repository',
                             credentialsId: 'NEXUS_CRED',
                             artifacts: [
