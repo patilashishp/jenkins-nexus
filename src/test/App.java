@@ -1,5 +1,5 @@
 package com.mycompany;
-package hudson.security;
+
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
