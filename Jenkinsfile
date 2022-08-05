@@ -3,22 +3,32 @@ pipeline {
     tools {
         maven "Maven"
     }
-    
+    environment {
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "50.112.84.71/:8081"
+        NEXUS_REPOSITORY = "java-app"
+        NEXUS_CREDENTIAL_ID = "NEXUS_CRED"
+    }
     stages {
-        
-        stage('Build Maven') {
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '281de1f4-2941-41a1-b6bc-9c0865e2e111', url: 'https://github.com/patilashishp/jenkins-nexus.git']]])
-                
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
-                
-            }    
+        stage("Clone code from GitHub") {
+            steps {
+                script {
+                    git branch: 'master', credentialsId: 'patilashishp', url: 'https://github.com/patilashishp/jenkins-nexus';
+                }
+            }
         }
-        
+        stage("Maven Build") {
+            steps {
+                script {
+                    sh "mvn package -DskipTests=true"
+                }
+            }
+        }
         stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
-                    pom = readmavenPom file: "pom.xml";
+                    pom = readMavenPom file: "pom.xml";
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
                     artifactPath = filesByGlob[0].path;
